@@ -7,8 +7,8 @@ var parameters = {
     imageH: 656,
     fieldH: 8.23,
     fieldW: 16.46,
-    startX: 0,
-    startY: 0.754126,
+    startX: 1.06,
+    startY: 3.12,
     robotH: 1,
     robotW: 0.86,
     rotationRadius: 0.8,
@@ -47,7 +47,7 @@ if (!String.prototype.format) {
 
 function makeAllPointsCalculations() {
     imagePointsToBasePoints();
-    basePointsToPathPoints();
+
     pathPointsToImagePathPoints();
 }
 
@@ -134,11 +134,12 @@ function getXYatLine(startPt, endPt, distanceFromStart) {
 function pathPointsToCode() {
     var result = "addSequential(new PurePursuit(new Point[] {";
     for (var i = 1; i < parameters.basePoints.length; i++) {
-        var x = Math.round(parameters.basePoints[i].x * 1000) / 1000;
-        var y = Math.round(parameters.basePoints[i].y * 1000) / 1000;
+        var x = Math.round(parameters.basePoints[i].x * 100) / 100;
+        var y = Math.round(parameters.basePoints[i].y * 100) / 100;
         result += "<br>&nbsp&nbsp&nbsp new Point({0}, {1}".format(x, y);
+        console.log(x,y);
         result += ")";
-        if (i != parameters.pathPoints.length - 1)
+        if (i !== parameters.pathPoints.length - 1)
             result += ",";
     }
     result += "} {0})".format( parameters.isBackwards);
